@@ -1,11 +1,13 @@
-
 import { test as base } from "@playwright/test";
 import { brokenLinkAction } from "../Action/brokenLink";
 import { SearchAction } from "../Action/searchAction";
+import { AddProductAction } from "../Action/addProductAction";
+import { OutofStockAction } from "../Action/stockAction";
 
 type AppActions = {
     brokenLinkAction: brokenLinkAction;
-    searchAction: SearchAction;
+    addProductAction: AddProductAction;
+    stock: OutofStockAction;
 };
 
 type Fixtures = {
@@ -15,17 +17,14 @@ type Fixtures = {
 
 export const test = base.extend<Fixtures>({
 
-
- 
-  
-appActions: async ({ page }, use) => {
-    const appAction : AppActions = {
-        brokenLinkAction: new brokenLinkAction(page),
-        searchAction: new SearchAction(page)
-    };
-
-  await use(appAction);
-},
+    appActions: async ({ page }, use) => {
+        const appAction: AppActions = {
+            brokenLinkAction: new brokenLinkAction(page),,
+        addProductAction: new AddProductAction(page),
+        searchAction: new SearchAction(page)        stock: new OutofStockAction(page),
+          };
+        await use(appAction);
+    },
 });
-export { expect } from "@playwright/test";
 
+export { expect } from "@playwright/test";
